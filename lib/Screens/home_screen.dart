@@ -1,7 +1,9 @@
 
 
  import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeup_store/Screens/cart_screen.dart';
+import 'package:makeup_store/bloc/cart_bloc/cart_bloc.dart';
  import 'products_screen.dart';
  import 'Wishlist_screen.dart';
  import 'profile_screen.dart';
@@ -48,7 +50,10 @@ class HomeScreen extends StatefulWidget {
   label: "Home"),
   BottomNavigationBarItem(icon: Icon(Icons.favorite_outline),
   label: "Wishlist"),
-    BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined),
+    BottomNavigationBarItem(
+        icon: Badge.count(
+       count: context.watch<CartBloc>().state.cartItems.length,
+      child: Icon(Icons.shopping_cart_outlined)),
      label: "cart"),
   BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined),
   label: "Profile"),

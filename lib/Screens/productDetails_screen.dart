@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:makeup_store/Screens/Product_item_model.dart';
+import 'package:makeup_store/model/Product_item_model.dart';
 import 'package:makeup_store/Screens/cart_screen.dart';
 
 class ProductdetailsScreen extends StatefulWidget {

@@ -14,6 +14,16 @@
          this.quantity = 1,
        });
 
+   ProductItemModel copyWith({int quantity=1}){
+     return ProductItemModel(
+         link,
+         name,
+         disc,
+         price,
+         isFavourite:isFavourite,
+         quantity:quantity
+     );
+   }
 
    static List<ProductItemModel> lipProductsList = [
      ProductItemModel(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeup_store/Screens/productDetails_screen.dart';
-import 'Product_item_model.dart';
+import 'package:makeup_store/bloc/cart_bloc/cart_bloc.dart';
+import '../model/Product_item_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class ProductsScreen extends StatefulWidget{
@@ -14,7 +16,19 @@ class _ProductsScreenState extends State<ProductsScreen> {
   bool isLipProducts = true;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return BlocListener<CartBloc,CartState>(
+  listener: (context, state) {
+    if(state.status==CartStatus.success){
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Item Added to cart"),
+            backgroundColor: Colors.green,
+          ),
+      );
+    }
+  },
+  child: Container(
       margin: .symmetric(horizontal: 4),
         child:Column(
       crossAxisAlignment: .start,
@@ -109,7 +123,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
          )
       ],
         )
-    );
+    ),
+);
   }
 
 Widget _buildSearch(){
@@ -195,7 +210,9 @@ Widget _buildProductCard2(ProductItemModel product){
             width: double.infinity,
             height: 35,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<CartBloc>().add(AddToCartEvent(product));
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFFFDECEF),
                 foregroundColor: Colors.black,
